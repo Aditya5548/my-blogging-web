@@ -17,7 +17,7 @@ export default function Home(props) {
 
 export const getServerSideProps = async () => {
   try {
-    const res = await axios.get("/api/blog");
+    const res = await axios.get("https://blogging-website-0csb.onrender.com/api/blog");
     return {
       props: {blogs:res.data},
     };
