@@ -4,7 +4,7 @@ import axios from 'axios';
 import {assets} from '../../../assets/assets';
 import { toast } from 'react-toastify';
 
-const page = () => {
+const AddProduct = () => {
   const [image,setImage] = useState(false);
   const [data,setData] = useState({
     title:"",
@@ -72,4 +72,4 @@ const page = () => {
   )
 }
 
-export default page
+export default AddProduct

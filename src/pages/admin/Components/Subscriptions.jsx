@@ -3,7 +3,7 @@ import useSWR from "swr";
 import { toast } from "react-toastify";
 import { ClipLoader  } from "react-spinners";
 const fetcher = (url) => fetch(url).then(res => res.json())
-const page = () => {
+const Subscriptions = () => {
     const { data, error, isLoading, mutate } = useSWR('/api/email', fetcher)
     if (isLoading) {return (
       <div className="flex justify-center items-center">
@@ -53,4 +53,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Subscriptions

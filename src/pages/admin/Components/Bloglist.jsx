@@ -6,7 +6,7 @@ import { ClipLoader } from "react-spinners";
 import { assets } from '../../../assets/assets';
 import { toast } from "react-toastify";
 const fetcher = (url) => fetch(url).then(res => res.json())
-const page = () => {
+const Bloglist = () => {
   const { data, error, isLoading, mutate } = useSWR('/api/blog', fetcher)
   if (isLoading) {return (
     <div className="flex justify-center items-center">
@@ -61,4 +61,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Bloglist
