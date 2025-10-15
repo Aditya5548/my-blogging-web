@@ -27,9 +27,9 @@ const Bloglist = (data) => {
       </div>
       <div className="flex flex-wrap justify-center gap-10 mb-16 xl:mx-24">
         {blogs.filter((item) => menu == "All" ? true : item.category === menu).map((item) => (
-          <div className='max-w-[330px] sm:max-w-[300px] bg-white border border-black hover:shadow-[-7px_7px_0px_#00000]' key={item._id}>
+          <div className='max-w-[330px] sm:max-w-[300px] bg-white border border-gray-500 rounded-md shadow-md hover:shadow-[-7px_7px_0px_#00000]' key={item._id}>
             <p onClick={() => { handleClick(item) }}>
-              <Image src={item.image} alt='' width={330} height={100} className='border-b border-black h-[150px]' />
+              <Image src={item.image} alt='' width={330} height={100} className='border-b border-gray-500 h-[150px] rounded-t-md' />
             </p>
             <p className='ml-5 mt-5 px-5 py-1 inline-block bg-black text-white text-sm'>{item.category}</p>
             <div className="p-5">

@@ -7,7 +7,9 @@ import { assets } from '../../../assets/assets';
 import { toast } from "react-toastify";
 const fetcher = (url) => fetch(url).then(res => res.json())
 const Bloglist = () => {
-  const { data, error, isLoading, mutate } = useSWR('/api/blog', fetcher)
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkFkaXR5YTkzNzciLCJpYXQiOjE3NjA1MzM0NzN9.CqdnBoA0eNMwLa7U8dWtDhuw7QLa3tsgbL8Q8hxSvAo"
+  const { data, error, isLoading, mutate } = useSWR(`/api/blog?token=${token}`, fetcher)
+  console.log(data)
   if (isLoading) {return (
     <div className="flex justify-center items-center">
       <div className="flex flex-col items-center gap-5">
@@ -27,15 +29,21 @@ const Bloglist = () => {
   }
 
   const deleteBlog = async (blogid) => {
-    await axios.delete('/api/blog', { params: { id: blogid } });
-    toast.success('Blog Deleted Successfully..');
-    mutate();
+    const token = localStorage.getItem('token')
+    const response = await axios.delete('/api/blog', { params: {id: blogid,token: token} });
+    if(response.data.msg == "Blog Deleted"){
+      toast.success('Blog Deleted Successfully..');
+      mutate();
+    }
+    else{
+      toast.error(response.data.msg)
+    }
   }
 
   console.log(data)
   return (
     <div className="flex flex-col items-center pt-5 px-5 sm:pt-12 sm:pl-16">
-      <div className='relative h-[80vh] max-w-[850px] overflow-x-auto border border-gray-400 scrollbar-hide'>
+      <div className='relative h-[80vh] max-w-[850px] overflow-x-auto border border-gray-400 scrolling'>
           <div className="hidden md:flex text-sm text-gray-700 text-left uppercase bg-gray-50">
               <p className="w-full md:w-3/20 px-6 py-3">Photo</p>
               <p className="w-full md:w-2/5 px-6 py-3">Blog Title</p>
@@ -44,7 +52,7 @@ const Bloglist = () => {
               <p className="w-full md:w-3/20 px-6 py-3">Action</p>
           </div>
             {data.map((item) => (
-              <div key={item._id} className="flex flex-wrap justify-around items-center bg-white border-b">
+              <div key={item._id} className="flex flex-wrap justify-around items-center border-b">
                 <p className="w-full md:w-3/20 gap-3 px-6 py-4 font-medium text-gray-900">
                   <Image src={item.authorImg ? item.authorImg : assets.profile_icon} alt="" width={50} height={50} />
                 </p>

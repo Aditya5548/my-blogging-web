@@ -1,6 +1,6 @@
 import {assets} from '../assets/assets';
 import Image from "next/image";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 const Navbar = () => {
@@ -16,11 +16,12 @@ const Navbar = () => {
             toast.error(response.data.msg);
         }
     }
+
   return (
     <div className='py-5 px-5 md:px-12 lg:px-28'>
         <div className='flex justify-between items-center'>
             <Image src={assets.logo} width={180} alt='' className='w-[130px] sm:w-auto'/>
-            <button className='flex items-center gap-2 font-medium py-1 px-3 sm:py-3 sm:px-3 border border-solid border-black shadow-[-7px_7px_0px_#000000]'>
+            <button className='flex items-center gap-2 font-medium py-1 px-3 sm:py-3 sm:px-3 border border-solid border-black shadow-[-7px_7px_0px_#000000] text-black bg-white'>
                 Get Started
                 <Image src={assets.arrow} alt=''/>
             </button>

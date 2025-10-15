@@ -11,12 +11,18 @@ export default function Home() {
   if (!mounted) return null;
 
   return (
-    <div className="flex flex-col items-center justify-center transition-colors duration-300 fixed bottom-3 right-3">
+    <div className="flex items-center justify-center transition-colors duration-300 fixed bottom-3 right-3">
       <button
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        className="px-6 py-3 rounded-lg bg-gray-600 text-white dark:bg-white dark:text-black hover:brightness-90 transition font-bold"
+        className="px-3 py-2 rounded-l-md bg-black text-white dark:bg-gray-200 dark:text-black hover:brightness-90 transition font-bold"
       >
-      {theme}
+      Light
+      </button>
+      <button
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        className="px-3 py-2 rounded-r-md bg-gray-200 text-black dark:bg-black dark:text-white hover:brightness-90 transition font-bold"
+      >
+      Dark
       </button>
     </div>
   );
