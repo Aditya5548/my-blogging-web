@@ -19,7 +19,7 @@ const Navbar = () => {
 
   return (
     <div className='py-5 px-5 md:px-12 lg:px-28'>
-        <div className='flex justify-between items-center'>
+        <div className='flex justify-between items-center bg-white'>
             <Image src={assets.logo} width={180} alt='' className='w-[130px] sm:w-auto'/>
             <button className='flex items-center gap-2 font-medium py-1 px-3 sm:py-3 sm:px-3 border border-solid border-black shadow-[-7px_7px_0px_#000000] text-black bg-white'>
                 Get Started
