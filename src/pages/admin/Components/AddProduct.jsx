@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 const AddProduct = () => {
   const [image, setImage] = useState(false);
-  const token = localStorage.getItem('token')
+  const [token, setToken] = useState('');
   const [data, setData] = useState({
     title: "",
     description: "",
@@ -50,6 +50,10 @@ const AddProduct = () => {
       toast.error(response.data.msg)
     }
   }
+  useEffect(()=>{
+    const localtoken = localStorage.getItem('token')
+    setToken(localtoken)
+  },[])
   return (
     <>
       <form onSubmit={onsubmitHandler} className="flex flex-col pt-5 px-5 sm:pt-12 sm:pl-16">

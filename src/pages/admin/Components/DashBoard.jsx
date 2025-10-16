@@ -13,10 +13,12 @@ const DashBoard = () => {
   const changeStatus = (status)=>{
     SetCategory(status)
   }
-  const logout =()=>{
-    localStorage.removeItem('token')
-    window.location.reload()
+  const logout = () => {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem('token');
+    window.location.reload();
   }
+};
   return (
     <>
     <div  className='flex flex-col w-full h-[100vh]'>
