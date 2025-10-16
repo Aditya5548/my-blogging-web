@@ -19,7 +19,7 @@ export default function Home(props) {
 
 export const getServerSideProps = async () => {
   try {
-    const res = await axios.get("https://blogging-website-0csb.onrender.com/api/blog",{ params: {token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkFkaXR5YTkzNzciLCJpYXQiOjE3NjA1MzM0NzN9.CqdnBoA0eNMwLa7U8dWtDhuw7QLa3tsgbL8Q8hxSvAo"}});
+    const res = await axios.get("https://my-blogging-web.onrender.com/api/blog",{ params: {token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkFkaXR5YTkzNzciLCJpYXQiOjE3NjA1MzM0NzN9.CqdnBoA0eNMwLa7U8dWtDhuw7QLa3tsgbL8Q8hxSvAo"}});
     return {
       props: {blogs:res.data},
     };
