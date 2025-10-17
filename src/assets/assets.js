@@ -20,7 +20,6 @@ import twitter_icon from './twitter_icon.png'
 import profile_icon from './profile_icon.png'
 import logo from './logo.png'
 import arrow from './arrow.png'
-import logo_light from './logo_light.png'
 import blog_icon from './blog_icon.png'
 import add_icon from './add_icon.png'
 import email_icon from './email_icon.png'
@@ -34,7 +33,6 @@ export const assets = {
     profile_icon,
     logo,
     arrow,
-    logo_light,
     blog_icon,
     add_icon,
     email_icon,
