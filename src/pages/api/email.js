@@ -5,16 +5,11 @@ export default async function handler(req, res) {
     await connectDB();
     if (req.method === 'GET') {
         try {
-            const decoded = jwt.verify(req.query.token, process.env.NEXT_PUBLIC_API_URL)
-            if (decoded.id === process.env.NEXT_PUBLIC_SECRET_KEY) {
-                const SubscribeEmail = await EmailModel.find({}).sort({ _id: -1 });
-                return res.status(200).json(SubscribeEmail);
-            } else {
-                return res.status(200).json({ msg: "Unauthorised API Access" });
-            }
+            const SubscribeEmail = await EmailModel.find({}).sort({ _id: -1 });
+            return res.status(200).json(SubscribeEmail);
         }
         catch (error) {
-            return res.status(200).json({ msg: "Unauthorised API Access" });
+            return res.status(200).json({ msg: "Error occured" });
         }
     }
     if (req.method === 'POST') {

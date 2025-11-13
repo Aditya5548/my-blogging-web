@@ -1,41 +1,75 @@
-import {assets} from '../assets/assets';
-import Image from "next/image";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify';
-const Navbar = () => {
-    const [email,setEmail] = useState('');
-    const onSubmitHandler = async (e) =>{
-        e.preventDefault();
-        const response = await  axios.post('/api/email',{email:email});
-        if(response.data.success){
-            toast.success(response.data.msg);
-            setEmail("");
+import Userlogin from './Userlogin';
+import UserReg from './UserReg';
+import { useUser } from '../context/UserContext';
+import { assets } from '@/assets/assets';
+import Image from 'next/image';
+import { signOut, useSession } from 'next-auth/react';
+const Navbar = () => {   
+    const { showhide, setShowhide } = useUser();
+    const { showhideoptions, setShowhideoptions } = useUser();
+    const { username, setUsername } = useUser(false);
+    const session = useSession()
+    useEffect(() => {
+        const token = localStorage.getItem("usertoken")
+        if (token) {
+            async function cheackuser() {
+                var response = await axios.get('/api/user', { params: { token: token } })
+                setUsername(response.data.username)
+            }
+            cheackuser()
         }
-        else{
-            toast.error(response.data.msg);
+        if(session.status==="authenticated"){
+        setShowhide(false)
+        const username=session.data.user.name
+        const userfirstname=username.split(" ")[0];
+        setUsername(userfirstname)
+      }
+    })
+    function logout(){
+        const token = localStorage.getItem("usertoken")
+        if(token){
+            setUsername('')
+            localStorage.removeItem('usertoken')
+        }
+        if(session.status=="authenticated"){
+            setUsername('')
+            signOut()
         }
     }
 
-  return (
-    <div className='py-5 px-5 md:px-12 lg:px-28'>
-        <div className='flex justify-between items-center'>
-            <p className='text-3xl sm:text-4xl font-medium italic'>Tech Info</p>
-            <button className='flex items-center gap-2 font-medium py-1 px-3 sm:py-3 sm:px-3 border border-solid border-black shadow-[-7px_7px_0px_#000000] text-black bg-white'>
-                Get Started
-                <Image src={assets.arrow} alt=''/>
-            </button>
+    return (
+        <div className='pt-5 px-5 md:px-12 lg:px-28'>
+            {showhide ? showhideoptions == 1 ? <Userlogin /> : <UserReg /> : ""}
+
+            <div className='flex justify-between items-center'>
+                <p className='text-xl sm:text-4xl font-medium italic'>Tech Info</p>
+                <div>
+                    {
+                        !username ?
+                            <div className='flex gap-1  font-medium py-1 px-3 sm:py-3 sm:px-3 border border-solid border-black shadow-[-7px_7px_0px_#000000] text-black bg-white'>
+                                <button onClick={() => { setShowhide(true); setShowhideoptions(1); }}>Login</button> /
+                                <button onClick={() => { setShowhide(true); setShowhideoptions(2); }}>Signup</button>
+                            </div> :
+                            <div class="dropdown">
+                                <button class="dropbtn">
+                                    <p className="flex items-center text-xl md:text-2xl font-medium gap-1 md:gap-2">Hey, {username}<Image src={assets.dropdown} alt="Example image" className='w-[20px] h-[10px] md:w-[25px] md:h-[15px]'/> </p>
+                                
+                                </button>
+                                <div className="dropdown-content md:w-[150px] z-10">
+                                    <button>Profile</button>
+                                    <button>About</button>
+                                    <button>Contact Us</button>
+                                    <button onClick={()=>{logout()}}>Logout</button>
+                                </div>
+                            </div>
+                    }
+                </div>
+            </div>
+ 
         </div>
-        <div className='text-center my-8'>
-            <h1 className='text-3xl sm:text-5xl font-medium'>Latest Blogs</h1>
-            <p className='mt-10 max-w-[740px] m-auto text-xs sm:text-base'>Aditya Kumar Yadav’s blog is a dynamic online space where knowledge, creativity, and personal insights converge. Designed for readers who seek meaningful content, the blog covers a wide range of topics including technology, education, lifestyle, travel, and personal growth.</p>
-            <form className='flex justify-between max-w-[500px] scale-75 sm:scale-100 mx-auto mt-10 border border-black' onSubmit={onSubmitHandler}>
-                <input type="email" placeholder='Enter your Email' className='w-full pl-4 outline-none' onChange={(e)=>setEmail(e.target.value)} name="email" value={email}/>
-                <button type="submit" className='border-l border-black p-4 sm:px-8 active:bg-gray-600 text-white bg-black'>Subscribe</button>
-            </form>
-        </div>
-    </div>
-  )
+    )
 }
 
 export default Navbar

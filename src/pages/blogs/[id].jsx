@@ -1,24 +1,16 @@
 import Link from 'next/link';
 import Image from "next/image";
 import { useRouter } from 'next/router';
-
 import { assets} from '../../assets/assets';
 import Footer from '../../Components/Footer';
-
+import Navbar from '../../Components/Navbar';
 const page = ( ) => {
-
   const router = useRouter();
   const data = router.query;
-  console.log(data);
   return (
     data ? <>
-      <div className='bg-gray-300 p-5 md:px-12 lg:px-28'>
-        <div className="flex justify-between items-center">
-         <Link href={'/'} className='cursor-pointer'><p className='text-3xl sm:text-4xl font-medium italic'>Tech Info</p></Link> 
-          <button className='flex items-center gap-2 font-medium py-1 px-3 sm:py-3 sm:px-6 border border-black  shadow-[-7px_7px_0px_#000000]'>Get Started
-            <Image src={assets.arrow} alt='' />
-          </button>
-        </div>
+      <div className='bg-gray-300 pb-5'>
+        <Navbar/>
         <div className="text-center mb-20 mt-5">
           <h1 className="text-xl sm:text-2xl font-semibold max-w-[700px] mx-auto">{data.title}</h1>
           <Image src={null || data.authorImg} width={60} height={60} alt='' className='mx-auto mt-6 mb-3 border border-white rounded-full' />

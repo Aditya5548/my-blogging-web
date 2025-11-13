@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 import formidable from 'formidable';
 import path from 'path';
 import BlogModel from '../../lib/models/BlogModel';
+import EmailModel from '../../lib/models/EmailModel';
+import { main } from './Send-Email/helper';
 const fs = require('fs');
 export const config = {
   api: {
@@ -34,6 +36,8 @@ export default async function handler(req, res) {
       try {
         const decoded = jwt.verify(fields.token[0], process.env.NEXT_PUBLIC_API_URL)
         console.log("decode data", decoded)
+        const SubscribeEmail = await EmailModel.find({}).sort({ _id: -1 });
+        const emaillist=SubscribeEmail.map((e)=>e.email);
         try {
           const now = new Date();
           const date = now.toLocaleDateString();
@@ -50,7 +54,9 @@ export default async function handler(req, res) {
             authorImg: fields.authorImg?.[0],
             date: date,
           };
-          const response = await BlogModel.create(blogData);
+        const response = await BlogModel.create(blogData);
+        const msg = `<b>hello ,<b/><h2>${fields.title[0]}<h2/> we have just published this blog post in our blogging platform.<br/> visit my blogging platform and view this blog in my blogging platform.<br/> <br/>Cheers, <br/> Tech-Info`
+        main(emaillist,"Tech-info Blogging", msg)
           return res.status(200).json({ status: 'success', msg: response });
 
         }
