@@ -74,8 +74,7 @@ const UserReg = () => {
             <h1>continue with </h1>
             <div className="flex gap-5 items-center">
               <Image src={assets.google_icon} width={50} height={50} className="cursor-pointer" onClick={() => signIn('google')} alt="no image not" />
-              <Image src={assets.facebook_logo} width={45} height={45} className="cursor-pointer" alt="no image not" />
-            </div>
+           </div>
           </div>
         </div>
       </div>
