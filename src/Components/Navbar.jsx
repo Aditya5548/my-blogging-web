@@ -6,7 +6,7 @@ import { useUser } from '../context/UserContext';
 import { assets } from '@/assets/assets';
 import Image from 'next/image';
 import { signOut, useSession } from 'next-auth/react';
-const Navbar = () => {   
+const Navbar = () => {
     const { showhide, setShowhide } = useUser();
     const { showhideoptions, setShowhideoptions } = useUser();
     const { username, setUsername } = useUser(false);
@@ -16,58 +16,66 @@ const Navbar = () => {
         if (token) {
             async function cheackuser() {
                 var response = await axios.get('/api/user', { params: { token: token } })
+                setShowhide("active")
                 setUsername(response.data.username)
             }
             cheackuser()
         }
-        if(session.status==="authenticated"){
-        setShowhide(false)
-        const username=session.data.user.name
-        const userfirstname=username.split(" ")[0];
-        setUsername(userfirstname)
-      }
+        if (session.status === "authenticated") {
+            setShowhide("active")
+            const username = session.data.user.name
+            const userfirstname = username.split(" ")[0];
+            setUsername(userfirstname)
+        }
+        else {
+            setShowhide('inactive')
+        }
     })
-    function logout(){
+    function logout() {
         const token = localStorage.getItem("usertoken")
-        if(token){
+        if (token) {
             setUsername('')
             localStorage.removeItem('usertoken')
         }
-        if(session.status=="authenticated"){
+        if (session.status == "authenticated") {
             setUsername('')
             signOut()
+        }
+        else {
+            setShowhide('inactive')
         }
     }
 
     return (
         <div className='pt-5 px-5 md:px-12 lg:px-28'>
-            {showhide ? showhideoptions == 1 ? <Userlogin /> : <UserReg /> : ""}
+            {showhideoptions == 1 ? <Userlogin /> : showhideoptions == 2 ? <UserReg /> : ""}
 
             <div className='flex justify-between items-center'>
                 <p className='text-xl sm:text-4xl font-medium italic'>Tech Info</p>
                 <div>
                     {
-                        !username ?
+                        showhide === "inactive" ?
                             <div className='flex gap-1  font-medium py-1 px-3 sm:py-3 sm:px-3 border border-solid border-black shadow-[-7px_7px_0px_#000000] text-black bg-white'>
                                 <button onClick={() => { setShowhide(true); setShowhideoptions(1); }}>Login</button> /
                                 <button onClick={() => { setShowhide(true); setShowhideoptions(2); }}>Signup</button>
                             </div> :
-                            <div class="dropdown">
-                                <button class="dropbtn">
-                                    <p className="flex items-center text-xl md:text-2xl font-medium gap-1 md:gap-2">Hey, {username}<Image src={assets.dropdown} alt="Example image" className='w-[20px] h-[10px] md:w-[25px] md:h-[15px]'/> </p>
-                                
-                                </button>
-                                <div className="dropdown-content md:w-[150px] z-10">
-                                    <button>Profile</button>
-                                    <button>About</button>
-                                    <button>Contact Us</button>
-                                    <button onClick={()=>{logout()}}>Logout</button>
+                            showhide === "active" && username?
+                                <div class="dropdown">
+                                    <button class="dropbtn">
+                                        <p className="flex items-center text-xl md:text-2xl font-medium gap-1 md:gap-2">Hey, {username}<Image src={assets.dropdown} alt="Example image" className='w-[20px] h-[10px] md:w-[25px] md:h-[15px]' /> </p>
+                                    </button>
+                                    <div className="dropdown-content md:w-[150px] z-10">
+                                        <button>Profile</button>
+                                        <button>About</button>
+                                        <button>Contact Us</button>
+                                        <button onClick={() => { logout() }}>Logout</button>
+                                    </div>
                                 </div>
-                            </div>
+                                : ""
                     }
                 </div>
             </div>
- 
+
         </div>
     )
 }

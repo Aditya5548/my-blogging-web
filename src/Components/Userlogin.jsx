@@ -34,11 +34,9 @@ const Userlogin = () => {
     <div className='fixed top-0 left-0 z-5 flex justify-center items-center w-screen h-screen bg-gray-100/90'>
       <ToastContainer/>
       <div className='flex flex-col gap-2 w-[90%] md:w-[400px] border border-gray-400 shadow-lg px-10 py-3 bg-white'>
-          <div className='flex items-center py-2'>
-            <h1 className="text-2xl text-center font-bold w-9/10">Login</h1>
-            <button  className="text-2xl w-1/10" onClick={()=>setShowhide(false)}>X</button> 
-          </div>
-         <div className="pt-3">
+          <button className="text-2xl text-end " onClick={()=>setShowhideoptions(false)}>X</button> 
+          <h1 className="text-2xl text-center font-bold">Login</h1>  
+         <div className="pt-2">
           <h1 className="flex">Don't have an account ?<button className="text-blue-600 px-0.5 italic" onClick={()=>{setShowhideoptions(2)}}>SignUp</button></h1>
          </div>
          <form className='flex flex-col gap-5 pt-3' onSubmit={logcode}>
@@ -48,8 +46,11 @@ const Userlogin = () => {
          </form>
          <div className="flex justify-end"><u className="text-blue-600 mr-2 text-lg">Forgot password</u></div>
           <div className="flex flex-col items-center gap-2">
-            <h1>Login with </h1>
-            <Image src={assets.google_icon} width={50} height={50} className="cursor-pointer" onClick={()=>signIn('google')} alt="no image not"/>
+            <h1>continue with </h1>
+            <div className="flex gap-5 items-center">
+              <Image src={assets.google_icon} width={50} height={45} className="cursor-pointer" onClick={()=>signIn('google')} alt="no image not"/>
+              <Image src={assets.facebook_logo} width={50} height={45} className="cursor-pointer" alt="no image not"/>
+            </div>
           </div>
       </div>
     </div>

@@ -11,8 +11,10 @@ import upload_area from './upload_area.png'
 import logout from './logout.png'
 import google_icon from './google_icon.png'
 import dropdown from './dropdown.png'
+import facebook_logo from './Facebook_logo.png'
 export const assets = {
     facebook_icon,
+    facebook_logo,
     googleplus_icon,
     twitter_icon,
     profile_icon,
