@@ -39,16 +39,17 @@ const Userlogin = () => {
          <div className="pt-2">
           <h1 className="flex">Don't have an account ?<button className="text-blue-600 px-0.5 italic" onClick={()=>{setShowhideoptions(2)}}>SignUp</button></h1>
          </div>
-         <form className='flex flex-col gap-5 pt-3' onSubmit={logcode}>
+         <form className='flex flex-col gap-3 pt-3' onSubmit={logcode}>
           <input type="email" placeholder='email Id' className='w-full outline-none border border-gray-200 px-3 py-1' name="email" value={email} onChange={(e)=>{SetEmail(e.target.value)}} required />
           <input type="password" placeholder='Password' className='w-full outline-none border border-gray-200 px-3 py-1' name="password" value={password} onChange={(e)=>{SetPassword(e.target.value)}} required />
           <button className="bg-black text-white py-2 cursor-pointer">Submit</button>
          </form>
          <div className="flex justify-end"><u className="text-blue-600 mr-2 text-lg">Forgot password</u></div>
-          <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-col items-center gap-2 py-2">
             <h1>continue with </h1>
             <div className="flex gap-5 items-center">
               <Image src={assets.google_icon} width={50} height={45} className="cursor-pointer" onClick={()=>signIn('google')} alt="no image not"/>
+              {/* <Image src={assets.facebook_logo} width={50} height={45} className="cursor-pointer" alt="no image not"/> */}
             </div>
           </div>
       </div>

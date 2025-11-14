@@ -48,10 +48,10 @@ const UserReg = () => {
     <>
       <div className='fixed top-0 left-0 z-5 flex justify-center items-center w-screen h-screen bg-gray-500/90'>
         <ToastContainer />
-        <div className='flex flex-col gap-2 w-[90%] md:w-[400px] border border-gray-400 shadow-lg px-10 py-3 bg-white'>
+        <div className='flex flex-col gap-2 w-[90%] md:w-[400px] border border-gray-400 shadow-lg px-10 pt-2 pb-3 bg-white'>
           <button className="text-2xl text-end " onClick={()=>setShowhideoptions(false)}>X</button> 
-          <h1 className="text-2xl text-center font-bold">SignUp</h1> 
-          <form className='flex flex-col gap-5 pt-3' onSubmit={logcode}>
+          <h1 className="text-2xl text-center font-bold">Signup</h1> 
+          <form className='flex flex-col gap-2 pt-2' onSubmit={logcode}>
             <input type="text" placeholder='Your Name' className='w-full outline-none border border-gray-200 px-3 py-1' name="name" value={name} onChange={(e) => { SetName(e.target.value) }} required />
             <div className="flex gap-2 text-lg">
               <label htmlFor="male"> Male</label>
@@ -70,11 +70,12 @@ const UserReg = () => {
             <input className='w-full outline-none border border-gray-200 px-3 py-1' type="password" placeholder='Password' name="password" minLength={8} value={password} onChange={(e) => { SetPassword(e.target.value) }} required />
             <button className="bg-black text-white py-2 cursor-pointer">Register</button>
           </form>
-          <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-col items-center py-2 gap-2">
             <h1>continue with </h1>
             <div className="flex gap-5 items-center">
               <Image src={assets.google_icon} width={50} height={50} className="cursor-pointer" onClick={() => signIn('google')} alt="no image not" />
-           </div>
+              {/* <Image src={assets.facebook_logo} width={45} height={45} className="cursor-pointer" alt="no image not" /> */}
+            </div>
           </div>
         </div>
       </div>
