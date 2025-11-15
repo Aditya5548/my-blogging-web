@@ -15,14 +15,14 @@ const Adminlogin = () => {
       window.location.reload()  //refresh the current route
     }
     else{
-      toast.error("Invalid Login credential")
+      toast.error(response.data.msg)
     }
   }
   return (
     <>
     <div className=' flex justify-center items-center w-screen h-screen'>
       <div className='flex flex-col gap-2 w-[90%] md:w-[400px] border border-gray-400 shadow-lg px-10 py-5'>
-         <h1 className='text-xl text-center'>Admin Login</h1> 
+         <i className='text-xl text-center'>Admin Login</i> 
          <form className='flex flex-col gap-5 pt-3' onSubmit={logcode}>
           <input type="text" placeholder='User Id' className='w-full outline-none border border-gray-200 px-3 py-1' name="userid" value={userid} onChange={(e)=>{SetUserid(e.target.value)}}/>
           <input type="text" placeholder='Password' className='w-full outline-none border border-gray-200 px-3 py-1' name="password" value={password} onChange={(e)=>{SetPassword(e.target.value)}}/>

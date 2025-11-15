@@ -1,13 +1,14 @@
-import { connectDB } from '../../lib/config/db';
-import userModel from '../../lib/models/userModel';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import { connectDB } from '../../lib/config/db';
+import userModel from '../../lib/models/userModel';
+
 const createtoken = (id) => {
     return jwt.sign({ id }, process.env.NEXT_PUBLIC_API_URL);
 }
 export default async function handler(req, res) {
+    await connectDB();
     if (req.method === "GET") {
-        await connectDB();
         if (req.query.email && req.query.password) {
             const { email, password } = req.query
             if (email && password) {

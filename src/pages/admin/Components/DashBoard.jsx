@@ -23,7 +23,7 @@ const DashBoard = () => {
     <>
     <div  className='flex flex-col w-full h-[100vh]'>
       <div className="flex justify-between px-5 py-2 items-center bg-white border-b">
-        <Image src={assets.logo} width={150} height={70}/>
+        <i className="text-xl md:text-3xl font-bold text-black">Tech Info</i>
         <p className="text-xl font-bold cursor-pointer text-black" onClick={logout}>Admin Panel</p>
       </div>
       
