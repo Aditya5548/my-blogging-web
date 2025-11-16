@@ -5,7 +5,7 @@ import { RateLimiterMemory } from 'rate-limiter-flexible';
 import { main } from './Send-Email/helper';
 
 import { connectDB } from '../../lib/config/db.js';
-import AdminModel from '../../lib/models/AdminModel.js';
+import adminModel from '../../lib/models/adminModel';
 
 const createtoken = (data) => {
     return jwt.sign({ data }, process.env.NEXT_PUBLIC_API_URL);
@@ -27,7 +27,7 @@ export default async function handler(req, res) {
                 const rlRes = await rateLimiter.get(ip);
                 const usedPoint = rlRes?.consumedPoints || 0;
                 const attemptleft =3-usedPoint;
-                const admin = await AdminModel.findOne({ userid })
+                const admin = await adminModel.findOne({ userid })
                 if (!admin) {
                     return res.status(200).json({ success: false, msg: "Admin not exists" });
                 }
@@ -70,7 +70,7 @@ export default async function handler(req, res) {
                     userid: req.body.userid,
                     password: hashedpassword,
                 }
-                const newuser = new AdminModel(data)
+                const newuser = new adminModel(data)
                 newuser.save()
                 return res.status(200).json({ success: true, msg: "Admin Added Successfully" });
             }

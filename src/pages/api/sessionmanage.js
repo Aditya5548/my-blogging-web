@@ -1,11 +1,11 @@
 import { connectDB } from '../../lib/config/db';
-import AdminModel from '../../lib/models/AdminModel';
+import adminModel from '../../lib/models/adminModel';
 
 export default async function handler(req, res) {
     await connectDB();
     if (req.method === "GET") {
         const {userid ,sessionid} =req.query
-        const admin = await AdminModel.findById(userid);
+        const admin = await adminModel.findById(userid);
         if(!admin){
             return res.status(200).json({ success: false, msg: "user not exist"});
         }
