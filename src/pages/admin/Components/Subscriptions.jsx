@@ -1,5 +1,6 @@
 import axios from "axios";
 import useSWR from "swr";
+import Cookies from 'js-cookie';
 import { toast } from "react-toastify";
 import { ClipLoader  } from "react-spinners";
 const fetcher = (url) => fetch(url).then(res => res.json())
@@ -25,7 +26,7 @@ const Subscriptions = () => {
     }
   
   const deleteBlog = async (blogid) => {
-    const token = localStorage.getItem('token')
+    const token = Cookies.get('token')
     const response = await axios.delete('/api/email', { params: { id: blogid ,token: token} });
     if(response.data.msg == "Subscription Removed"){
       toast.success('Subscription Removed');

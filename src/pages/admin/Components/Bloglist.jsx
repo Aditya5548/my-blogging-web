@@ -1,8 +1,8 @@
 import axios from "axios";
 import Image from "next/image";
 import useSWR from "swr";
+import Cookies from 'js-cookie';
 import { ClipLoader } from "react-spinners";
-
 import { assets } from '../../../assets/assets';
 import { toast } from "react-toastify";
 const fetcher = (url) => fetch(url).then(res => res.json())
@@ -29,7 +29,7 @@ const Bloglist = () => {
   }
 
   const deleteBlog = async (blogid) => {
-    const token = localStorage.getItem('token')
+    const token = Cookies.get('token')
     const response = await axios.delete('/api/blog', { params: {id: blogid,token: token} });
     if(response.data.msg == "Blog Deleted"){
       toast.success('Blog Deleted Successfully..');

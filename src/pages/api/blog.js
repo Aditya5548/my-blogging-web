@@ -45,6 +45,7 @@ export default async function handler(req, res) {
           const imageFile = files.image?.[0];
           const fileName = path.basename(imageFile.filepath);
           const imgUrl = `/${fileName}`;
+          if (!imageFile) return res.status(400).json({ status: "failed", msg: "No image uploaded" });
           const blogData = {
             title: fields.title?.[0],
             description: fields.description?.[0],
@@ -65,6 +66,7 @@ export default async function handler(req, res) {
         }
       }
       catch (e) {
+        console.log(e)
         return res.status(200).json({ status: 'failed', msg: "Invaild Login Credential" });
       }
     });

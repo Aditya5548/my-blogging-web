@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { assets } from '../assets/assets';
-
+import { format } from 'timeago.js'
 const Bloglist = (data) => {
   const [menu, setMenu] = useState("All");
   const [blogs] = useState(data.Blogs.blogs);
@@ -46,16 +46,18 @@ const Bloglist = (data) => {
       </div>
       <div className="flex flex-wrap justify-center gap-10 mb-16 xl:mx-24">
         {blogs.filter((item) => menu == "All" ? true : item.category === menu).map((item) => (
-          <div className='max-w-[330px] sm:max-w-[300px] bg-white rounded-md shadow-lg hover:shadow-[-7px_7px_0px_#00000]' key={item._id}>
-            <p onClick={() => { handleClick(item) }}>
-              <Image src={item.image} alt='' width={330} height={100} className='border-b border-gray-500 h-[150px] rounded-t-md' />
-            </p>
-            <p className='ml-5 mt-5 px-5 py-1 inline-block bg-black text-white text-sm'>{item.category}</p>
+          <div className='max-w-[330px] bg-white rounded-md shadow-lg hover:shadow-[-7px_7px_0px_#00000]' key={item._id}>
+            <div onClick={() => { handleClick(item) }} className='h-[150px] cursor-pointer'>
+              <Image src={item.image} alt='' width={330} height={100} className='absolute z-0 border-b border-gray-500 w-[330px] h-[150px] rounded-t-md' />
+              <div className='flex justify-end'><p className=' bg-black/80 text-white w-fit p-1 rounded-sm text-sm relative top-2 right-2'> {format(item.date)}</p></div>
+            </div>
+            <p className='ml-5 mt-5 px-5 py-1 inline-block bg-black text-white text-sm'>{item.category} </p>
             <div className="p-5">
+              <h2 className='font-bold'>{item.tourname}</h2>
               <h5 className='mb-2 text-lg font-medium tracking-tight text-gray-900'>{item.title}</h5>
               <p className="mb-3 text-sm tracking-tight text-gray-700" dangerouslySetInnerHTML={{ __html: item.description.slice(0, 100) }}></p>
               <div className='inline-flex items-center py-2 font-semibold text-center'>
-                <p onClick={() => { handleClick(item) }} className="flex px-3 py-1 cursor-pointer text-black">Read more <Image src={assets.arrow} style={{ width: "15px",height: "auto"}} className='ml-2' alt='' /></p>
+                <p onClick={() => { handleClick(item) }} className="flex px-3 py-1 cursor-pointer text-black bold">View <Image src={assets.arrow} width={15} height={3} className='ml-2' alt='' /></p>
               </div>
             </div>
           </div>

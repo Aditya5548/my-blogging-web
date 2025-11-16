@@ -2,30 +2,46 @@ import { useState ,useEffect } from 'react';
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify';
 import { jwtDecode } from "jwt-decode";
+import Cookies from 'js-cookie';
 import Adminlogin from './Components/Adminlogin.jsx';
 import DashBoard from './Components/DashBoard.jsx';
 import Waiting from './Components/Waiting.jsx';
+import Inactivitylogout from './Components/Inactivitylogout.jsx'
+import axios from 'axios';
 
 const index = () => {
   const [token, setToken] = useState(null);
-  useEffect(() => {
-    const secretkey=process.env.NEXT_PUBLIC_API_URL;
-    const savedToken = localStorage.getItem('token');
-    if (savedToken) {
+  const [savedToken, setSavedToken] = useState(Cookies.get("token") || null);
+  Inactivitylogout(1*60*1000)
+
+  async function sessionmanage(savedToken) {
       try {
-        const decoded = jwtDecode(savedToken);
-        console.log("Token Decoded:", decoded);
+      const decoded = jwtDecode(savedToken);
+      const response = await axios.get('/api/sessionmanage', { params: decoded.data});
+      if(response.data.success){
         setToken(true);
-      } catch (error) {
-        setToken(false)
-        localStorage.removeItem('token')
-        console.log("invalid Token")
       }
+      else{
+        setToken(false);
+        Cookies.remove('token') 
+      }
+      
     } 
-    else {
+  catch (error) {
+      setToken(false);
+      Cookies.remove('token');
+      console.log(error);
+  }
+}
+  useEffect(() => {
+    if (savedToken) {
+      sessionmanage(savedToken)
+    } 
+    else{
       setToken(false)
-    } 
-  },[]);
+    }
+  },[savedToken]);
+
   return (
     <>
     <ToastContainer/>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Cookies from 'js-cookie';
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify';
 
@@ -15,7 +16,7 @@ const DashBoard = () => {
   }
   const logout = () => {
   if (typeof window !== "undefined") {
-    localStorage.removeItem('token');
+    Cookies.remove("token");
     window.location.reload();
   }
 };

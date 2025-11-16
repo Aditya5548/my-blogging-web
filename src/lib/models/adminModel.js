@@ -2,8 +2,9 @@ import mongoose from 'mongoose';
 const Schema = new mongoose.Schema({
     userid:{type:String, required:true,unique:true},
     password:{type:String,required:true},
+    sessionid:{type:String,required:false},
 },
 { timestamps : true}
 )
-const AdminModel =mongoose.models.AdLogin|| mongoose.model('AdLogin',Schema)
+const AdminModel =mongoose.models.AdLoginid|| mongoose.model('AdLoginid',Schema)
 export default AdminModel;

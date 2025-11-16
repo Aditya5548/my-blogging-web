@@ -3,7 +3,7 @@ import Image from 'next/image';
 import axios from 'axios';
 import { assets } from '../../../assets/assets';
 import { toast } from 'react-toastify';
-
+import Cookies from 'js-cookie'
 const AddProduct = () => {
   const [image, setImage] = useState(false);
   const [token, setToken] = useState('');
@@ -51,7 +51,7 @@ const AddProduct = () => {
     }
   }
   useEffect(()=>{
-    const localtoken = localStorage.getItem('token')
+    const localtoken = Cookies.get('token')
     setToken(localtoken)
   },[])
   return (
@@ -60,9 +60,9 @@ const AddProduct = () => {
         <div className='flex flex-col items-center py-2 border w-full sm:w-[500px] '>
           <p>Upload Thumbnail</p>
           <label htmlFor="image">
-            <Image className='mt-1 cursor-pointer' src={!image ? assets.upload_area : URL.createObjectURL(image)} alt='' width={140} height={70} />
+            <Image className='mt-1 cursor-pointer' src={!image ? assets.upload_area : URL.createObjectURL(image)} alt='' width={140} height={70}  />
           </label>
-          <input onChange={(e) => setImage(e.target.files[0])} type="file" id='image' hidden />
+          <input onChange={(e) => setImage(e.target.files[0])} type="file" id='image' hidden accept='.jpg' />
         </div>
         <input className="w-full sm:w-[500px] mt-2 px-4 py-3 border" name='title' onChange={onChangeHandler} value={data.title} type="text" placeholder='Blog Title' required />
         <textarea className="w-full sm:w-[500px] mt-2 px-4 py-3 border" type="text" name='description' onChange={onChangeHandler} value={data.description} placeholder='Blog Description' required />

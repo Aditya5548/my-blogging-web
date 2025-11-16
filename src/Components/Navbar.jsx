@@ -50,7 +50,7 @@ const Navbar = () => {
         <div className='pt-5 px-5 md:px-12 lg:px-28'>
             {showhideoptions == 1 ? <Userlogin /> : showhideoptions == 2 ? <UserReg /> : ""}
 
-            <div className='flex justify-between items-center'>
+            <div className='flex justify-between items-center h-[30px]'>
                 <p className='text-xl sm:text-4xl font-medium italic'>Tech Info</p>
                 <div>
                     {
