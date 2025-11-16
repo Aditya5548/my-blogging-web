@@ -1,10 +1,12 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import {v4 as uuidv4} from 'uuid';
-import AdminModel from '../../lib/models/AdminModel';
-import { connectDB } from '../../lib/config/db';
 import { RateLimiterMemory } from 'rate-limiter-flexible';
 import { main } from './Send-Email/helper';
+
+import { connectDB } from '../../lib/config/db.js';
+import AdminModel from '../../lib/models/AdminModel.js';
+
 const createtoken = (data) => {
     return jwt.sign({ data }, process.env.NEXT_PUBLIC_API_URL);
 }
