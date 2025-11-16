@@ -6,5 +6,5 @@ const Schema = new mongoose.Schema({
 },
 { timestamps : true}
 )
-const AdminModel =mongoose.models.AdLoginid|| mongoose.model('AdLoginid',Schema)
+const AdminModel =mongoose.models.AdLoginid || mongoose.model('AdLoginid',Schema)
 export default AdminModel;
