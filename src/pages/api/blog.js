@@ -40,7 +40,7 @@ export default async function handler(req, res) {
         const emaillist=SubscribeEmail.map((e)=>e.email);
         try {
           const now = new Date();
-          const date = now.toLocaleDateString();
+          const date = now.toISOString();
           // get uploaded image
           const imageFile = files.image?.[0];
           const fileName = path.basename(imageFile.filepath);
